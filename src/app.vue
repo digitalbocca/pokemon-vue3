@@ -1,19 +1,24 @@
 <template lang="pug">
 
-div.home
-  h1
-    | Hello World
+.home
+  top-bar
+  .content
+    .search
+      p Search
+    .cards
+      p Cards
   
 </template>
 
-<script>
+<script setup>
+
+import TopBar from './components/top-bar.vue'
 
 </script>
 
 <style lang="sass">
 
 .home
-  @apply text-3xl font-bold underline
   @apply flex flex-col items-center justify-center
 
 </style>
