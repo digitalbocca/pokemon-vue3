@@ -2,17 +2,18 @@
 
 .home
   top-bar
-  .content
+  .home__content
     .search
       p Search
     .cards-container
-      card(v-for="pokemon, id in pokemons" :key="id")
-        template(#image)
-          img(:src="pokemon.image")
-        template(#title)
-          p {{ pokemon.name }}
-        template(#description)
-          p {{ pokemon.type }}
+      .cards
+        card(v-for="pokemon, id in pokemons" :key="id")
+          template.image(#image)
+            img.poke-avatar(:src="pokemon.image")
+          template(#title)
+            p {{ pokemon.name }}
+          template(#description)
+            p {{ pokemon.type }}
   
 </template>
 
@@ -54,13 +55,20 @@ const pokemons = [
 .home
   @apply flex flex-col items-center justify-center
 
-  .content
+  .home__content
     @apply flex flex-col items-center justify-center
     @apply p-4 m-4
     @apply w-full
 
   .cards-container
-    @apply flex flex-wrap justify-center
+    @apply flex justify-center
     @apply w-full
+
+    .cards
+      @apply flex flex-wrap content-start
+      @apply w-full
+
+      max-width: 850px
+
 
 </style>
