@@ -1,10 +1,8 @@
-<template>
+<template lang="pug">
 
-<div>
-  <h1 class="text-3xl font-bold underline">
-    Hello World
-  </h1>
-</div>
+div.home
+  h1
+    | Hello World
   
 </template>
 
@@ -12,6 +10,10 @@
 
 </script>
 
-<style>
+<style lang="sass">
+
+.home
+  @apply text-3xl font-bold underline
+  @apply flex flex-col items-center justify-center
 
 </style>
