@@ -14,6 +14,7 @@
             p {{ pokemon.name }}
           template(#description)
             p Cód: {{ pokemon.id }}
+        load-more
   
 </template>
 
@@ -24,6 +25,7 @@ import { onMounted, computed } from 'vue'
 
 import TopBar from '@/components/top-bar.vue'
 import Card from '@/components/card.vue'
+import LoadMore from '@/components/load-more.vue'
 
 const store = useStore()
 
@@ -54,6 +56,5 @@ onMounted(() => {
       @apply w-full
 
       max-width: 850px
-
 
 </style>
