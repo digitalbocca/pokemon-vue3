@@ -22,6 +22,7 @@
   @apply bg-white
   @apply rounded-lg
   @apply drop-shadow
+  @apply cursor-pointer
 
   width: 153px
   height: 190px

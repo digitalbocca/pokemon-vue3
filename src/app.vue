@@ -4,7 +4,7 @@
   top-bar
   .home__content
     .search
-      p Search
+      p {{ loadMoreIsVisible }}
     .cards-container
       .cards
         card(v-for="pokemon, id in pokemons" :key="id")
@@ -14,25 +14,31 @@
             p {{ pokemon.name }}
           template(#description)
             p Cód: {{ pokemon.id }}
-        load-more
+        load-more(v-if="loadMoreIsVisible" @click="loadMore()")
   
 </template>
 
 <script setup>
 
-import { useStore } from 'vuex'
 import { onMounted, computed } from 'vue'
 
 import TopBar from '@/components/top-bar.vue'
 import Card from '@/components/card.vue'
 import LoadMore from '@/components/load-more.vue'
 
+import { GENERAL_LIMIT } from '@/constants'
+import { useStore } from '@/store/pokemons'
+
 const store = useStore()
 
-const pokemons = computed(() => store.state.pokemons)
+const pokemons = computed(() => store.getPokemons)
+
+const loadMoreIsVisible = computed(() => pokemons.value.length < GENERAL_LIMIT)
+
+const loadMore = store.fetchPokemons
 
 onMounted(() => {
-  store.dispatch('fetchPokemons')
+  store.fetchPokemons()
 })
 
 </script>
