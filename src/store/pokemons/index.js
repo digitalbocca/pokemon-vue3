@@ -31,6 +31,10 @@ export const useStore = defineStore('pokemon', {
       if (codSearch.length) {
         return codSearch
       }
+
+      if (state.search.length) {
+        return []
+      }
       
       return state.pokemons
     }

@@ -4,8 +4,7 @@
   top-bar
   .home__content
     .search
-      input(type="text", placeholder="Pesquisar por Nome ou Codigo", v-model="store.search")
-      p {{ store.search }}
+      input.search(type="text", placeholder="Pesquisar por Nome ou Codigo", v-model="store.search")
     .cards-container
       .cards
         card(v-for="pokemon, id in filteredPokemons" :key="id")
@@ -57,14 +56,27 @@ onMounted(() => {
     @apply p-4 m-4
     @apply w-full
 
-  .cards-container
-    @apply flex justify-center
-    @apply w-full
-
-    .cards
-      @apply flex flex-wrap content-start
+    .cards-container
+      @apply flex justify-center
       @apply w-full
 
+      .cards
+        @apply flex flex-wrap content-start
+        @apply w-full
+
+        max-width: 850px
+    
+    .search
+      @apply flex flex-row items-center justify-center
+      @apply w-full
+      @apply p-4 m-4
+
       max-width: 850px
+
+      input
+        @apply w-full
+        @apply py-2 px-4 m-2
+        @apply rounded-full
+        @apply drop-shadow
 
 </style>
