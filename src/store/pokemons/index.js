@@ -6,11 +6,34 @@ export const useStore = defineStore('pokemon', {
   state () {
     return {
       pokemons: [],
-      loading: false
+      loading: false,
+      search: ''
     }
   },
   getters: {
-    getPokemons: state => state.pokemons
+    getPokemons: state => state.pokemons,
+    filteredPokemons: state => {
+      const nameFilter = el => {
+        return el.name.includes(state.search)
+      }
+
+      const codFilter = el => {
+        return el.id.toString().includes(state.search)
+      }
+
+      const nameSearch = state.pokemons.filter(nameFilter)
+      const codSearch = state.pokemons.filter(codFilter)
+
+      if (nameSearch.length) {
+        return nameSearch
+      }
+      
+      if (codSearch.length) {
+        return codSearch
+      }
+      
+      return state.pokemons
+    }
   },
   actions: {
     async fetchPokemons () {

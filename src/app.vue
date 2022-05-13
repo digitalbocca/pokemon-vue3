@@ -4,10 +4,11 @@
   top-bar
   .home__content
     .search
-      p {{ loadMoreIsVisible }}
+      input(type="text", placeholder="Pesquisar por Nome ou Codigo", v-model="store.search")
+      p {{ store.search }}
     .cards-container
       .cards
-        card(v-for="pokemon, id in pokemons" :key="id")
+        card(v-for="pokemon, id in filteredPokemons" :key="id")
           template.image(#image)
             img.poke-avatar(:src="pokemon.img")
           template(#title)
@@ -34,6 +35,7 @@ const store = useStore()
 
 const pokemons = computed(() => store.getPokemons)
 const isLoading = computed(() => store.loading)
+const filteredPokemons = computed(() => store.filteredPokemons)
 
 const loadMoreIsVisible = computed(() => pokemons.value.length < GENERAL_LIMIT)
 
