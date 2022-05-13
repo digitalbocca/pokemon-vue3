@@ -14,6 +14,7 @@
             p {{ pokemon.name }}
           template(#description)
             p Cód: {{ pokemon.id }}
+        load-more(v-if="loadMoreIsVisible && isLoading")
         load-more(v-if="loadMoreIsVisible" @click="loadMore()")
   
 </template>
@@ -32,6 +33,7 @@ import { useStore } from '@/store/pokemons'
 const store = useStore()
 
 const pokemons = computed(() => store.getPokemons)
+const isLoading = computed(() => store.loading)
 
 const loadMoreIsVisible = computed(() => pokemons.value.length < GENERAL_LIMIT)
 

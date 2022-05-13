@@ -4,15 +4,23 @@ card
   template.image(#image)
     load-more-icon.load-more-icon
   template(#title)
-    p Carregar mais
+    p {{ isLoading ? 'Carregando...' : 'Carregar mais' }}
   template(#description)
 
 </template>
 
 <script setup>
 
+import { computed } from 'vue'
+
 import Card from '@/components/card.vue'
 import LoadMoreIcon from '@/components/icons/load-more.vue'
+
+import { useStore } from '@/store/pokemons'
+
+const store = useStore()
+
+const isLoading = computed(() => store.loading)
 
 </script>
 

@@ -5,7 +5,8 @@ import { API_URL, PAGE_OFFSET, GENERAL_LIMIT } from '@/constants'
 export const useStore = defineStore('pokemon', {
   state () {
     return {
-      pokemons: []
+      pokemons: [],
+      loading: false
     }
   },
   getters: {
@@ -14,7 +15,7 @@ export const useStore = defineStore('pokemon', {
   actions: {
     async fetchPokemons () {
       try {
-        console.log('Carregando pokemons...')
+        this.loading = true
         const currentSize = this.pokemons.length
         const requestOffset = currentSize + PAGE_OFFSET > GENERAL_LIMIT ? GENERAL_LIMIT - currentSize : PAGE_OFFSET
         const { data } = await axios.get(API_URL, {
@@ -38,6 +39,8 @@ export const useStore = defineStore('pokemon', {
         this.pokemons.push(...completePokemons)
       } catch (e) {
         console.error(e.message)
+      } finally {
+        this.loading = false
       }
     }
   }
