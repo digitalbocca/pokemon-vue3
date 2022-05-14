@@ -13,9 +13,9 @@
         template.image(#image)
           img.poke-avatar(:src="pokemon.img")
         template(#title)
-          p {{ pokemon.name }}
+          p.poke-name {{ pokemon.name }}
         template(#description)
-          p Cód: {{ pokemon.id }}
+          p.poke-cod Cód: {{ pokemon.id }}
       load-more(v-if="loadMoreIsVisible && isLoading")
       load-more(v-if="loadMoreIsVisible" @click="loadMore()")
   
@@ -37,6 +37,7 @@ const store = useStore()
 const router = useRouter()
 
 const pokemons = computed(() => store.getPokemons)
+const pristine = computed(() => store.getPristine)
 const isLoading = computed(() => store.loading)
 const filteredPokemons = computed(() => store.filteredPokemons)
 
@@ -49,7 +50,9 @@ const gotoDetails = id => {
 }
 
 onMounted(() => {
-  store.fetchPokemons()
+  if (pristine.value) {
+    store.fetchPokemons()
+  }
 })
 
 </script>
@@ -70,6 +73,18 @@ onMounted(() => {
       @apply w-full
 
       max-width: 850px
+
+      .poke-name
+        @apply capitalize
+
+        font-family: 'Mulish', sans-serif
+        font-size: 14px
+        font-weight: 700
+
+      .poke-cod
+        font-family: 'Quicksand', sans-serif
+        font-size: 9px
+        font-weight: 700
   
   .search
     @apply flex flex-row items-center justify-center

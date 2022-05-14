@@ -7,11 +7,13 @@ export const useStore = defineStore('pokemon', {
     return {
       pokemons: [],
       loading: false,
-      search: ''
+      search: '',
+      pristine: true
     }
   },
   getters: {
     getPokemons: state => state.pokemons,
+    getPristine: state => state.pristine,
     filteredPokemons: state => {
       const nameFilter = el => {
         return el.name.includes(state.search)
@@ -44,6 +46,11 @@ export const useStore = defineStore('pokemon', {
       try {
         this.loading = true
         const currentSize = this.pokemons.length
+
+        if (currentSize >= GENERAL_LIMIT) {
+          return
+        }
+
         const requestOffset = currentSize + PAGE_OFFSET > GENERAL_LIMIT ? GENERAL_LIMIT - currentSize : PAGE_OFFSET
         const { data } = await axios.get(API_URL, {
           params: {
@@ -68,6 +75,7 @@ export const useStore = defineStore('pokemon', {
         console.error(e.message)
       } finally {
         this.loading = false
+        this.pristine = false
       }
     }
   }
