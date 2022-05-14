@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 import Home from '@/views/home.vue'
+import Details from '@/views/details.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -9,6 +10,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/details/:pokemonId',
+      name: 'details',
+      component: Details
     }
   ]
 })

@@ -5,7 +5,11 @@
     input.search(type="text", placeholder="Pesquisar por Nome ou Codigo", v-model="store.search")
   .cards-container
     .cards
-      card(v-for="pokemon, id in filteredPokemons" :key="id")
+      card(
+          v-for="pokemon, id in filteredPokemons"
+          :key="id"
+          @click="gotoDetails(pokemon.id)"
+        )
         template.image(#image)
           img.poke-avatar(:src="pokemon.img")
         template(#title)
@@ -20,6 +24,7 @@
 <script setup>
 
 import { onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 import TopBar from '@/components/top-bar.vue'
 import Card from '@/components/card.vue'
@@ -29,6 +34,7 @@ import { GENERAL_LIMIT } from '@/constants'
 import { useStore } from '@/store/pokemons'
 
 const store = useStore()
+const router = useRouter()
 
 const pokemons = computed(() => store.getPokemons)
 const isLoading = computed(() => store.loading)
@@ -37,6 +43,10 @@ const filteredPokemons = computed(() => store.filteredPokemons)
 const loadMoreIsVisible = computed(() => pokemons.value.length < GENERAL_LIMIT)
 
 const loadMore = store.fetchPokemons
+
+const gotoDetails = id => {
+  router.push(`/details/${id}`)
+}
 
 onMounted(() => {
   store.fetchPokemons()
