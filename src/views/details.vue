@@ -6,17 +6,17 @@
       p Loading...
     div(v-else) 
       img(:src="pokemonData.pokemon.sprites.front_default" :alt="pokemonData.pokemon.name")
-      p.capitalize Nome: {{ pokemonData.pokemon.name }}
-      p Cód: {{ pokemonData.pokemon.id }}
-      p.capitalize Tipo: {{ pokemonData.pokemon.types[0].type.name }}
+      p.title {{ pokemonData.pokemon.name }}
+      p.info Cód: {{ pokemonData.pokemon.id }}
+      p.info Tipo: {{ pokemonData.pokemon.types[0].type.name }}
 
   .card-lg
     div(v-if="pokemonData.loading")
       p Loading...
     div(v-else) 
-      h2 Habilidades
+      h2.title Habilidades
       ul
-        li.capitalize(v-for="ability, id in pokemonData.pokemon.abilities" :key="id")
+        li.info(v-for="ability, id in pokemonData.pokemon.abilities" :key="id")
           | {{ ability.ability.name }}
 
   .control
@@ -73,6 +73,28 @@ onMounted(async () => {
     @apply text-center
 
     max-width: 450px
+    font-family: 'Mulish', sans-serif
+
+    .title
+      @apply font-bold capitalize text-2xl
+      @apply my-2
+    
+    .info
+      @apply font-normal capitalize text-lg
+      @apply my-1
+    
+  .control
+    .btn
+      @apply uppercase text-white font-bold
+      @apply rounded
+      @apply w-full
+      @apply bg-lime-900
+      @apply py-2 px-4 m-2
+
+      &:hover
+        @apply bg-lime-700
+
+
 
 
 </style>
